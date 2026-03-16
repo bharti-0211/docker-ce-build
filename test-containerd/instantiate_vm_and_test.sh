@@ -146,7 +146,7 @@ ssh ubuntu@$IP -i /etc/ssh-volume/containerd-key wget https://raw.githubusercont
 ssh ubuntu@$IP -i /etc/ssh-volume/containerd-key sudo bash test_on_powervs.sh $RUNC_FLAVOR $TEST_RUNTIME
 scp -i /etc/ssh-volume/containerd-key "ubuntu@$IP:/home/containerd_test/containerd/*.xml" ${OUTPUT}
 
-delete_vm $ID
-sleep 120
-delete_network $NETWORK
+# delete_vm $ID
+# sleep 120
+# delete_network $NETWORK
 
