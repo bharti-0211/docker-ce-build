@@ -142,7 +142,7 @@ if [ "$i" == "$TIMEOUT" ]; then
 fi
 
 # Get test script and execute it
-ssh ubuntu@$IP -i /etc/ssh-volume/containerd-key wget https://raw.githubusercontent.com/ppc64le-cloud/docker-ce-build/main/test-containerd/test_on_powervs.sh
+ssh ubuntu@$IP -i /etc/ssh-volume/containerd-key wget https://github.com/bharti-0211/docker-ce-build/raw/refs/heads/testing/test-containerd/test_on_powervs.sh
 ssh ubuntu@$IP -i /etc/ssh-volume/containerd-key sudo bash test_on_powervs.sh $RUNC_FLAVOR $TEST_RUNTIME
 scp -i /etc/ssh-volume/containerd-key "ubuntu@$IP:/home/containerd_test/containerd/*.xml" ${OUTPUT}
 

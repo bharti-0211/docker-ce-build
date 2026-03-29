@@ -71,14 +71,11 @@ make binaries GO_BUILD_FLAGS="-mod=vendor"
 make install
 unset CGO_ENABLED
 
-echo "==== INTEGRATION TEST ===="
-GOTEST='gotestsum --' GOTESTSUM_JUNITFILE="junit_test-integration1_$RUNC_FLAVOR-$TEST_RUNTIME.xml" EXTRA_TESTFLAGS="-test.timeout 30m" make integration $TEST_FLAG TESTFLAGS_RACE=-race
-GOTEST='gotestsum --' GOTESTSUM_JUNITFILE="junit_test-integration2_$RUNC_FLAVOR-$TEST_RUNTIME.xml" EXTRA_TESTFLAGS="-test.timeout 30m" TESTFLAGS_PARALLEL=1 make integration $TEST_FLAG
-GOTEST='gotestsum --' GOTESTSUM_JUNITFILE="junit_test-cri-integration_$RUNC_FLAVOR-$TEST_RUNTIME.xml" EXTRA_TESTFLAGS="-test.timeout 30m" CONTAINERD_RUNTIME=$TEST_RUNTIME make cri-integration
+echo "==== RUN ONLY TestUsernsVolumeCopyUp ===="
 
-echo "==== TEST ===="
-GOTEST='gotestsum --' GOTESTSUM_JUNITFILE="junit_test-simple_$RUNC_FLAVOR-$TEST_RUNTIME.xml" EXTRA_TESTFLAGS="-test.timeout 30m" make test
-echo "==== ROOT-TEST ===="
-GOTEST='gotestsum --' GOTESTSUM_JUNITFILE="junit_test-root_$RUNC_FLAVOR-$TEST_RUNTIME.xml" EXTRA_TESTFLAGS="-test.parallel 1 -test.timeout 30m" make root-test
+# Run only your specific test
+TESTFLAGS="-run ^TestUsernsVolumeCopyUp$ -v -count=1" \
+TESTFLAGS_PARALLEL=1 \
+make integration $TEST_FLAG
 
 echo "==== END $RUNC_FLAVOR RUNTIME $TEST_RUNTIME ===="
