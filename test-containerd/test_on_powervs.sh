@@ -72,10 +72,7 @@ make install
 unset CGO_ENABLED
 
 echo "==== RUN ONLY TestUsernsVolumeCopyUp ===="
-
 # Run only your specific test
-TESTFLAGS="-run ^TestUsernsVolumeCopyUp$ -v -count=1" \
-TESTFLAGS_PARALLEL=1 \
-make integration $TEST_FLAG
+go test	-v -run "TestUsernsVolumeCopyUp" ./integration
 
 echo "==== END $RUNC_FLAVOR RUNTIME $TEST_RUNTIME ===="
